@@ -175,25 +175,29 @@
         <button onclick="saveStatement()">حفظ</button>
         <button class="cancel" onclick="closeModal('modalStatement')">إلغاء</button>
     </div></div>
-    <div class="mobile-nav">
-    <a href="#" class="mobile-nav-item active">
-        <i class="fas fa-home"></i>
-        <span>الرئيسية</span>
-    </a>
-    <a href="#" class="mobile-nav-item">
-        <i class="fas fa-users"></i>
-        <span>العملاء</span>
-    </a>
-    <a href="#" class="mobile-nav-item">
-        <i class="fas fa-chart-line"></i>
-        <span>التقارير</span>
-    </a>
-    <a href="#" class="mobile-nav-item">
-        <i class="fas fa-cog"></i>
-        <span>الإعدادات</span>
-    </a>
-</div>
 
     <script src="script.js"></script>
+    <nav class="mobile-nav no-print">
+    <div class="mobile-nav-item active" data-page="dashboard">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>الرئيسية</span>
+    </div>
+    <div class="mobile-nav-item" data-page="daily">
+        <i class="fa-solid fa-calendar-day"></i>
+        <span>اليومية</span>
+    </div>
+    <div class="mobile-nav-item" data-page="balances">
+        <i class="fa-solid fa-wallet"></i>
+        <span>الأرصدة</span>
+    </div>
+    <div class="mobile-nav-item" data-page="inventory">
+        <i class="fa-solid fa-boxes-stacked"></i>
+        <span>المخزن</span>
+    </div>
+    <div class="mobile-nav-item" data-page="statement">
+        <i class="fa-solid fa-file-invoice-dollar"></i>
+        <span>كشف حساب</span>
+    </div>
+</nav>
 </body>
 </html>
