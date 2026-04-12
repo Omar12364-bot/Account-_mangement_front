@@ -41,11 +41,8 @@ body { background: var(--bg); color: var(--text); transition: 0.3s; overflow-x: 
 
 @media print { .no-print { display: none !important; } .main-content { padding: 0; } .card { border: none; } }
 /* تنسيقات الموبايل */
-@media screen and (max-width: 768px) {
-    /* 1. إخفاء القائمة الجانبية التقليدية على الموبايل */
-    .sidebar {
-        display: none; 
-    }
+@media screen and (max-width: 768px) 
+   
 
     /* 2. توسيع المحتوى ليشمل الشاشة كاملة */
     .main-content {
