@@ -40,3 +40,66 @@ body { background: var(--bg); color: var(--text); transition: 0.3s; overflow-x: 
 .cancel { background: #94a3b8 !important; }
 
 @media print { .no-print { display: none !important; } .main-content { padding: 0; } .card { border: none; } }
+/* تنسيقات الموبايل */
+@media screen and (max-width: 768px) {
+    /* 1. إخفاء القائمة الجانبية أو تحويلها */
+    .sidebar {
+        width: 70px;
+        padding: 10px;
+    }
+    .sidebar .logo, .nav-item span {
+        display: none; /* إخفاء النصوص وإظهار الأيقونات فقط */
+    }
+    
+    .main-content {
+        width: calc(100% - 70px);
+        padding: 15px;
+    }
+
+    /* 2. ضبط الكروت الإحصائية */
+    .stats-grid {
+        grid-template-columns: 1fr; /* كارت واحد في كل صف */
+    }
+
+    /* 3. سحر الجداول: تحويل الجدول لكروت */
+    .main-table thead {
+        display: none; /* إخفاء رؤوس الجدول */
+    }
+
+    .main-table, .main-table tbody, .main-table tr, .main-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .main-table tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--card);
+        padding: 10px;
+    }
+
+    .main-table td {
+        text-align: right;
+        padding-right: 50%;
+        position: relative;
+        border-bottom: 1px solid var(--border);
+    }
+
+    /* إضافة اسم العمود قبل القيمة */
+    .main-table td::before {
+        content: attr(data-label); /* لازم نعدل الـ HTML شوية عشان دي تشتغل */
+        position: absolute;
+        right: 15px;
+        width: 45%;
+        font-weight: bold;
+        color: var(--primary);
+        text-align: right;
+    }
+
+    /* 4. تصغير المودال (النافذة المنبثقة) */
+    .modal-content {
+        width: 95% !important;
+        grid-template-columns: 1fr !important;
+    }
+}
