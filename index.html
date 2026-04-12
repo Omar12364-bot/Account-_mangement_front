@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الشحن السريع</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar no-print">
+            <div class="logo"><i class="fa-solid fa-truck-fast"></i> الشحن السريع</div>
+            <ul class="nav-links" style="list-style: none;">
+                <li class="nav-item active" data-page="dashboard"><i class="fa-solid fa-chart-pie"></i> لوحة القيادة</li>
+                <li class="nav-item" data-page="daily"><i class="fa-solid fa-calendar-day"></i> اليومية</li>
+                <li class="nav-item" data-page="balances"><i class="fa-solid fa-wallet"></i> الأرصدة</li>
+                <li class="nav-item" data-page="inventory"><i class="fa-solid fa-boxes-stacked"></i> المخزن</li>
+                <li class="nav-item" data-page="statement"><i class="fa-solid fa-file-invoice-dollar"></i> كشف الحساب</li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar no-print">
+                <h2 id="page-title">لوحة القيادة</h2>
+                <div class="header-left" style="display: flex; align-items: center; gap: 15px;">
+                    <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
+                    <div class="avatar" style="width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800;">AD</div>
+                </div>
+            </header>
+
+            <section id="dashboard" class="page active">
+                <div class="card printable">
+                    <div style="text-align: center; border-bottom: 2px solid var(--border); margin-bottom: 20px; padding-bottom: 15px;">
+                        <h2 style="color: var(--primary); font-weight: 800;">تقرير الحالة العامة للنظام</h2>
+                        <p style="color: #64748b;">تاريخ التقرير: <span id="dashDate"></span></p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card blue">
+                            <div class="stat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                            <div class="stat-details">
+                                <h4>إجمالي المبيعات</h4>
+                                <div class="value">5,140 ج</div>
+                            </div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon"><i class="fa-solid fa-cart-flatbed"></i></div>
+                            <div class="stat-details">
+                                <h4>إجمالي الطلبات</h4>
+                                <div class="value">124</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-row">
+                        <div class="chart-container card" style="border: 1px solid var(--border);">
+                            <h3 style="margin-bottom: 15px;">تحليل الإيرادات الأسبوعي</h3>
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="daily" class="page">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3>سجل الحركة اليومية</h3>
+                        <button class="btn-primary" onclick="openModal('modalDaily')">+ إضافة حركة جديدة</button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="main-table" style="min-width: 1500px;">
+                            <thead>
+                                <tr>
+                                    <th>اسم العميل</th><th>المستلم</th><th>الكود</th><th>البيان</th>
+                                    <th>العدد</th><th>الوزن</th><th>الكمية</th><th>السعر</th>
+                                    <th>الإجمالي</th><th>المدفوع</th><th>الرصيد</th><th>ملاحظات</th><th>حذف</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyDaily"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="balances" class="page">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <h3>أرصدة المندوبين والعملاء</h3>
+                        <button class="btn-primary" onclick="openModal('modalBalance')">+ إضافة رصيد</button>
+                    </div>
+                    <table class="main-table">
+                        <thead><tr><th>المندوب</th><th>العميل</th><th>الإجمالي</th><th>المدفوع</th><th>الرصيد</th><th>حذف</th></tr></thead>
+                        <tbody id="bodyBalances"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="inventory" class="page">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <h3>جرد المخزن</h3>
+                        <button class="btn-primary" onclick="openModal('modalInventory')">+ إضافة صنف</button>
+                    </div>
+                    <table class="main-table">
+                        <thead><tr><th>الكود</th><th>الصنف</th><th>رصيد أول</th><th>وارد</th><th>منصرف</th><th>الرصيد</th><th>السعر</th><th>قيمة المخزون</th><th>حذف</th></tr></thead>
+                        <tbody id="bodyInventory"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="statement" class="page">
+                <div class="card no-print">
+                    <div style="display: flex; justify-content: space-between;">
+                        <h3>كشف الحساب</h3>
+                        <div>
+                            <button class="btn-primary" onclick="openModal('modalStatement')">+ إضافة عملية</button>
+                            <button class="btn-primary cancel" onclick="window.print()"><i class="fa-solid fa-print"></i> طباعة</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card printable">
+                    <table class="main-table">
+                        <thead><tr><th>التاريخ</th><th>البيان</th><th>مدين</th><th>دائن</th><th>الرصيد التراكمي</th><th>حذف</th></tr></thead>
+                        <tbody id="bodyStatement"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="modalDaily" class="modal"><div class="modal-content" style="width: 650px;">
+        <h3>إضافة حركة يومية</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="text" id="dClient" placeholder="اسم العميل">
+            <input type="text" id="dReceiver" placeholder="المستلم">
+            <input type="text" id="dCode" placeholder="الكود">
+            <input type="text" id="dNote" placeholder="البيان">
+            <input type="number" id="dCount" placeholder="العدد">
+            <input type="number" id="dWeight" placeholder="الوزن">
+            <input type="number" id="dQty" placeholder="الكمية">
+            <input type="number" id="dPrice" placeholder="السعر">
+            <input type="number" id="dPaid" placeholder="المدفوع">
+            <input type="text" id="dRemark" placeholder="ملاحظات">
+        </div>
+        <button onclick="saveDaily()">حفظ الحركة</button>
+        <button class="cancel" onclick="closeModal('modalDaily')">إلغاء</button>
+    </div></div>
+
+    <div id="modalBalance" class="modal"><div class="modal-content">
+        <h3>إضافة رصيد</h3>
+        <input type="text" id="bRep" placeholder="المندوب">
+        <input type="text" id="bClient" placeholder="العميل">
+        <input type="number" id="bTotal" placeholder="الإجمالي">
+        <input type="number" id="bPaid" placeholder="المدفوع">
+        <button onclick="saveBalance()">حفظ</button>
+        <button class="cancel" onclick="closeModal('modalBalance')">إلغاء</button>
+    </div></div>
+
+    <div id="modalInventory" class="modal"><div class="modal-content">
+        <h3>إضافة صنف</h3>
+        <input type="text" id="iCode" placeholder="الكود"><input type="text" id="iName" placeholder="الصنف">
+        <input type="number" id="iStart" placeholder="رصيد أول"><input type="number" id="iPrice" placeholder="السعر">
+        <button onclick="saveInventory()">حفظ</button>
+        <button class="cancel" onclick="closeModal('modalInventory')">إلغاء</button>
+    </div></div>
+
+    <div id="modalStatement" class="modal"><div class="modal-content">
+        <h3>عملية مالية</h3>
+        <input type="date" id="sDate"><input type="text" id="sNote" placeholder="البيان">
+        <input type="number" id="sDebit" placeholder="مدين"><input type="number" id="sCredit" placeholder="دائن">
+        <button onclick="saveStatement()">حفظ</button>
+        <button class="cancel" onclick="closeModal('modalStatement')">إلغاء</button>
+    </div></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
