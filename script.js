@@ -1,14 +1,22 @@
-// 1. التنقل بين الصفحات
-document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', function() {
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        this.classList.add('active');
-        const pageId = this.getAttribute('data-page');
-        document.getElementById(pageId).classList.add('active');
-        document.getElementById('page-title').innerText = this.innerText;
+// 1. التنقل بين الصفحات (للكمبيوتر والموبايل)
+function navigate() {
+    const items = document.querySelectorAll('.nav-item, .mobile-nav-item');
+    items.forEach(item => {
+        item.addEventListener('click', function() {
+            // إزالة النشاط من الكل
+            items.forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            // تفعيل العنصر المختار (سواء في السايدبار أو القائمة السفلية)
+            const pageId = this.getAttribute('data-page');
+            document.querySelectorAll(`[data-page="${pageId}"]`).forEach(el => el.classList.add('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('page-title').innerText = this.innerText || this.querySelector('span').innerText;
+        });
     });
-});
+}
+navigate();
 
 // 2. إدارة النوافذ (Modals)
 function openModal(id) { document.getElementById(id).style.display = 'flex'; }
