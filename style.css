@@ -42,64 +42,86 @@ body { background: var(--bg); color: var(--text); transition: 0.3s; overflow-x: 
 @media print { .no-print { display: none !important; } .main-content { padding: 0; } .card { border: none; } }
 /* تنسيقات الموبايل */
 @media screen and (max-width: 768px) {
-    /* 1. إخفاء القائمة الجانبية أو تحويلها */
+    /* 1. إخفاء القائمة الجانبية التقليدية على الموبايل */
     .sidebar {
-        width: 70px;
-        padding: 10px;
+        display: none; 
     }
-    .sidebar .logo, .nav-item span {
-        display: none; /* إخفاء النصوص وإظهار الأيقونات فقط */
-    }
-    
+
+    /* 2. توسيع المحتوى ليشمل الشاشة كاملة */
     .main-content {
-        width: calc(100% - 70px);
-        padding: 15px;
-    }
-
-    /* 2. ضبط الكروت الإحصائية */
-    .stats-grid {
-        grid-template-columns: 1fr; /* كارت واحد في كل صف */
-    }
-
-    /* 3. سحر الجداول: تحويل الجدول لكروت */
-    .main-table thead {
-        display: none; /* إخفاء رؤوس الجدول */
-    }
-
-    .main-table, .main-table tbody, .main-table tr, .main-table td {
-        display: block;
         width: 100%;
+        padding: 15px;
+        padding-bottom: 80px; /* مساحة عشان القائمة السفلية */
     }
 
-    .main-table tr {
-        margin-bottom: 15px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
+    /* 3. تحويل شبكة الإحصائيات لعمود واحد */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* 4. إظهار القائمة السفلية (زي تطبيقات الموبايل) */
+    .mobile-nav {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
         background: var(--card);
-        padding: 10px;
+        height: 65px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 1000;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 11px;
+        color: var(--text-light);
+        text-decoration: none;
+    }
+
+    .mobile-nav-item.active {
+        color: var(--primary);
+    }
+
+    .mobile-nav-item i {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    /* 5. ضبط الجدول ليصبح كروت منفصلة */
+    .main-table tr {
+        display: block;
+        background: var(--card);
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 15px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
     }
 
     .main-table td {
-        text-align: right;
-        padding-right: 50%;
-        position: relative;
-        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px dashed var(--border);
+        text-align: left;
     }
 
-    /* إضافة اسم العمود قبل القيمة */
+    .main-table td:last-child { border: none; }
+
     .main-table td::before {
-        content: attr(data-label); /* لازم نعدل الـ HTML شوية عشان دي تشتغل */
-        position: absolute;
-        right: 15px;
-        width: 45%;
+        content: attr(data-label);
         font-weight: bold;
         color: var(--primary);
-        text-align: right;
-    }
-
-    /* 4. تصغير المودال (النافذة المنبثقة) */
-    .modal-content {
-        width: 95% !important;
-        grid-template-columns: 1fr !important;
     }
 }
+
+/* إخفاء الموبايل ناف في الشاشات الكبيرة */
+.mobile-nav { display: none; }
