@@ -98,39 +98,119 @@
                     </table>
                 </div>
             </section>
-
-            <section id="inventory" class="page">
-                <div class="card">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                        <h3>جرد المخزن</h3>
-                        <button class="btn-primary" onclick="openModal('modalInventory')">+ إضافة صنف</button>
-                    </div>
-                    <table class="main-table">
-                        <thead><tr><th>الكود</th><th>الصنف</th><th>رصيد أول</th><th>وارد</th><th>منصرف</th><th>الرصيد</th><th>السعر</th><th>قيمة المخزون</th><th>حذف</th></tr></thead>
-                        <tbody id="bodyInventory"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section id="statement" class="page">
-                <div class="card no-print">
-                    <div style="display: flex; justify-content: space-between;">
-                        <h3>كشف الحساب</h3>
-                        <div>
-                            <button class="btn-primary" onclick="openModal('modalStatement')">+ إضافة عملية</button>
-                            <button class="btn-primary cancel" onclick="window.print()"><i class="fa-solid fa-print"></i> طباعة</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card printable">
-                    <table class="main-table">
-                        <thead><tr><th>التاريخ</th><th>البيان</th><th>مدين</th><th>دائن</th><th>الرصيد التراكمي</th><th>حذف</th></tr></thead>
-                        <tbody id="bodyStatement"></tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
+<section id="inventory" class="page">
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <h3>جرد المخزن</h3>
+            <button class="btn-primary" onclick="openModal('modalInventory')">+ إضافة صنف</button>
+        </div>
+        <div class="table-wrapper">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>الكود</th>
+                        <th>الصنف</th>
+                        <th>رقم السيارة</th> <th>رصيد أول</th>
+                        <th>وارد</th>
+                        <th>منصرف</th>
+                        <th>الرصيد</th>
+                        <th>السعر</th>
+                        <th>قيمة المخزون</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyInventory"></tbody>
+            </table>
+        </div>
     </div>
+</section>
+
+<section id="inventory" class="page">
+    <div class="card">
+        <button class="btn-primary" onclick="openModal('modalInventory')">+ إضافة للمخزن</button>
+        <div class="table-wrapper">
+            <table class="main-table" style="min-width: 1400px;">
+                <thead>
+                    <tr>
+                        <th>الكود</th><th>الصنف</th><th>رقم السيارة</th>
+                        <th>رصيد أول</th><th>وارد</th><th>منصرف</th>
+                        <th>الحالي</th><th>السعر</th><th>القيمة</th>
+                        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th> <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyInventory"></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<div id="modalInventory" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <h3>إضافة صنف للمخزن</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <input type="text" id="iCode" placeholder="الكود">
+            <input type="text" id="iName" placeholder="اسم الصنف">
+            <input type="text" id="iCarNumber" placeholder="رقم السيارة">
+            <input type="number" id="iStart" placeholder="رصيد أول">
+            <input type="number" id="iIn" placeholder="وارد">
+            <input type="number" id="iOut" placeholder="منصرف">
+            <input type="number" id="iPrice" placeholder="السعر">
+            <input type="number" id="iTotalValue" placeholder="قيمة المخزون (اختياري)">
+            
+            <input type="number" id="col1" placeholder="1">
+            <input type="number" id="col2" placeholder="2">
+            <input type="number" id="col3" placeholder="3">
+            <input type="number" id="col4" placeholder="4">
+            <input type="number" id="col5" placeholder="5">
+            <input type="number" id="col6" placeholder="6">
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+            <button class="btn-primary" onclick="saveInventory()">حفظ</button>
+            <button class="btn-primary cancel" onclick="closeModal('modalInventory')">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+
+
+           <section id="statement" class="page">
+    <div class="card no-print">
+        <div style="display: flex; justify-content: space-between;">
+            <h3>كشف الحساب</h3>
+            <div>
+                <button class="btn-primary" onclick="openModal('modalStatement')">+ إضافة عملية</button>
+                <button class="btn-primary cancel" onclick="window.print()"><i class="fa-solid fa-print"></i> طباعة</button>
+            </div>
+        </div>
+    </div>
+    <div class="card printable">
+        <table class="main-table">
+            <thead>
+                <tr>
+                    <th>اسم العميل</th> <th>التاريخ</th>
+                    <th>البيان</th>
+                    <th>مدين (+)</th>
+                    <th>دائن (-)</th>
+                    <th>الرصيد التراكمي</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody id="bodyStatement"></tbody>
+        </table>
+    </div>
+</section>
+
+<div id="modalStatement" class="modal">
+    <div class="modal-content">
+        <h3>إضافة عملية مالية</h3>
+        <input type="text" id="sClient" placeholder="اسم العميل"> <input type="date" id="sDate">
+        <input type="text" id="sNote" placeholder="البيان">
+        <input type="number" id="sDebit" placeholder="مدين (دخل للخزنة)">
+        <input type="number" id="sCredit" placeholder="دائن (خرج من الخزنة)">
+        <button onclick="saveStatement()">حفظ العملية</button>
+        <button class="cancel" onclick="closeModal('modalStatement')">إلغاء</button>
+    </div>
+</div>
 
     <div id="modalDaily" class="modal"><div class="modal-content" style="width: 650px;">
         <h3>إضافة حركة يومية</h3>
@@ -150,15 +230,20 @@
         <button class="cancel" onclick="closeModal('modalDaily')">إلغاء</button>
     </div></div>
 
-    <div id="modalBalance" class="modal"><div class="modal-content">
-        <h3>إضافة رصيد</h3>
-        <input type="text" id="bRep" placeholder="المندوب">
-        <input type="text" id="bClient" placeholder="العميل">
+    <div id="modalBalance" class="modal">
+    <div class="modal-content">
+        <h3>إضافة رصيد جديد</h3>
+        <input type="text" id="bRep" placeholder="اسم المندوب">
+        <input type="text" id="bClient" placeholder="اسم العميل">
         <input type="number" id="bTotal" placeholder="الإجمالي">
         <input type="number" id="bPaid" placeholder="المدفوع">
-        <button onclick="saveBalance()">حفظ</button>
-        <button class="cancel" onclick="closeModal('modalBalance')">إلغاء</button>
-    </div></div>
+        
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+            <button class="btn-primary" onclick="saveBalance()">حفظ</button>
+            <button class="btn-primary cancel" onclick="closeModal('modalBalance')">إلغاء</button>
+        </div>
+    </div>
+
 
     <div id="modalInventory" class="modal"><div class="modal-content">
         <h3>إضافة صنف</h3>
